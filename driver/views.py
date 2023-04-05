@@ -1,4 +1,3 @@
-from django.http import JsonResponse
 from .models import Driver
 from .serializers import DriverSerializer
 from rest_framework.decorators import api_view
@@ -18,7 +17,7 @@ def driver_list(request, format=None):
     if request.method == 'GET':
         drivers = Driver.objects.all()
         serializer = DriverSerializer(drivers, many=True)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     # add drivers
     if request.method == 'POST':

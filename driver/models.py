@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here
 
+
 class Driver(models.Model):
     '''
     creates a driver table with buss details and route
@@ -21,4 +22,5 @@ class Driver(models.Model):
 #     trip_time = models.CharField(max_length=200)
 #     trip_date = models.CharField(max_length=200)
 #     transaction_id = models.CharField(max_length=200)
-#     route = models.CharField(max_length=500)
+#     trip_depature = models.CharField(max_length=500)
+#     trip_destination = models.CharField(max_length=500)

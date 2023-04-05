@@ -1,3 +1,11 @@
-from django.test import TestCase
+from rest_framework.test import APITestCase, APIRequestFactory
+from django.urls import reverse
+from rest_framework import status
 
-# Create your tests here.
+
+class DriverListTestCase(APITestCase):
+
+    def test_driver_list_get(self):
+        response = self.client.get(reverse('drivers'))
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
