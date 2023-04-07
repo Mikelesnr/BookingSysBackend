@@ -14,13 +14,4 @@ class Driver(models.Model):
     bus_type = models.CharField(max_length=200)
     route = models.CharField(max_length=500)
 
-# creates table of bookings
-# class Bookings(models.Model):
-#     client_name = models.CharField(max_length=200)
-#     client_surname = models.CharField(max_length=200)
-#     bus_reg = models.CharField(max_length=200)
-#     trip_time = models.CharField(max_length=200)
-#     trip_date = models.CharField(max_length=200)
-#     transaction_id = models.CharField(max_length=200)
-#     trip_depature = models.CharField(max_length=500)
-#     trip_destination = models.CharField(max_length=500)
+

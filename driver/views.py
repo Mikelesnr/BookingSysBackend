@@ -16,6 +16,7 @@ def driver_list(request, format=None):
     # get drivers
     if request.method == 'GET':
         drivers = Driver.objects.all()
+        print(drivers)
         serializer = DriverSerializer(drivers, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
