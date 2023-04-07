@@ -5,8 +5,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Booking
-import json
-from .common import open_seats
+from .common import open_seats, add_ticket_id
 
 # Create your views here.
 
@@ -30,11 +29,11 @@ def booking(request, format=None):
         bus_reg = request.data.get('bus_reg')
         trip_time = request.data.get('trip_time')
         seats_available = open_seats(bus_reg, trip_time)
-        serializer = BookingSerializer(data=request.data)
-        # and open_seats(request.data.reg, request.data.time):
+        my_request = add_ticket_id(request)
+        serializer = BookingSerializer(data=my_request)
         if serializer.is_valid() and seats_available:
             serializer.save()
-            return Response({'Booking': serializer.data, 'Seats available': seats_available}, status=status.HTTP_201_CREATED)
+            return Response({'Booking': my_request, 'Seats available': seats_available}, status=status.HTTP_201_CREATED)
         else:
             return Response({'seats_available': f"{seats_available} seats available"}, status=status.HTTP_200_OK)
 

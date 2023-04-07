@@ -2,6 +2,8 @@ from driver.serializers import BusSerializer
 from driver.models import Driver
 from .serializers import BookingSerializer
 from .models import Booking
+from uuid import uuid4 as id
+import json
 
 # create objects and functions for booking functionality here
 
@@ -24,6 +26,13 @@ def count_booked(reg, time):
 
 def open_seats(reg, time):
     return int(check_capacity(reg)) - int(count_booked(reg, time))
+
+def add_ticket_id(request):
+    my_request = request.POST.copy()
+    my_request['ticket_id'] = str(id())
+    my_request = json.dumps(my_request)
+    my_request = json.loads(my_request)
+    return my_request
 
 
 
