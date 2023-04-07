@@ -4,7 +4,7 @@ from .models import Booking
 
 class BookingSerializer(serializers.ModelSerializer):
     '''
-    serializes Tickets to JSON
+    serializes Tickets to and from json
     '''
     class Meta:
         model = Booking
