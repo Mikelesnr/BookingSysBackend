@@ -111,7 +111,7 @@ def trips(request, format=None):
 @api_view(['GET', 'PUT', 'DELETE'])
 def trip_edit(request, id, format=None):
     '''
-    .gets one trip, updates trip details, deletes trip
+    .gets one driver, update driver, delete driver
     .serializes record
     .return json
     '''
@@ -121,10 +121,8 @@ def trip_edit(request, id, format=None):
 
     # retrieve driver and assign to driver
     try:
-        reg = request.data.get('bus_reg')
-        time = request.data.get('trip_time')
-        trip = Trip.objects.get(bus_reg=reg, trip_time=time)
-    except Trip.DoesNotExist:
+        trip = Trip.objects.get(pk=id)
+    except Driver.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     # get driver

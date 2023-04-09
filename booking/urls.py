@@ -8,7 +8,7 @@ urlpatterns = [
     path("trip", views.trip, name="trip"),
     path("seats", views.seats_available, name="seats"),
     path("tripsavailable", views.trips, name="trips"),
-    path("managetrips", views.trip_edit, "manage trips")
+    path("trips/<int:id>", views.trip_edit, name="trip_manage"),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
