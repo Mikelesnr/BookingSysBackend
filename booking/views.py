@@ -61,11 +61,22 @@ def trip(request, format=None):
     .return json
     '''
 
-    # get buses
+    # get trip
     if request.method == 'POST':
         bus_reg = request.data.get('bus_reg')
         trip_time = request.data.get('trip_time')
         seats_available = open_seats(bus_reg, trip_time)
         my_trip = trip_creator(bus_reg, trip_time)
-        serializer = BusSerializer(buses, many=True)
         return Response({'trip': my_trip, 'Available seats': seats_available}, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+def seats_available(request, format=None):
+    '''
+    returns the seats avaible on a trip
+    '''
+    if request.method == 'POST':
+        bus_reg = request.data.get('bus_reg')
+        trip_time = request.data.get('trip_time')
+        seats_available = open_seats(bus_reg, trip_time)
+        return Response({'Available seats': seats_available}, status=status.HTTP_200_OK)
