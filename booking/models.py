@@ -14,3 +14,11 @@ class Booking(models.Model):
     ticket_id = models.CharField(max_length=200)
     trip_depature = models.CharField(max_length=500)
     trip_destination = models.CharField(max_length=500)
+
+
+class Trip(models.Model):
+    bus_reg = models.CharField(max_length=200)
+    trip_time = models.CharField(max_length=200)
+    trip_date = models.CharField(max_length=200)
+    trip_depature = models.CharField(max_length=500)
+    trip_destination = models.CharField(max_length=500)
