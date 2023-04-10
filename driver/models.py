@@ -14,4 +14,5 @@ class Driver(models.Model):
     bus_type = models.CharField(max_length=200)
     route = models.CharField(max_length=500)
 
-
+    def __str__(self):
+        return f"{self.name} {self.surname} bus reg {self.bus_reg}"

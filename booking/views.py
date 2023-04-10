@@ -37,7 +37,7 @@ def booking(request, format=None):
         serializer = BookingSerializer(data=my_request)
         if serializer.is_valid() and seats_available:
             serializer.save()
-            return Response({'Booking': my_request, 'Seats available': seats_available}, status=status.HTTP_201_CREATED)
+            return Response({'Booking': my_request, 'Seats available': seats_available-1}, status=status.HTTP_201_CREATED)
         else:
             return Response({'seats_available': f"{seats_available} seats available"}, status=status.HTTP_200_OK)
 
