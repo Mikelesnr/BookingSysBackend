@@ -100,7 +100,7 @@ def trips(request, format=None):
 
     # get trip
     if request.method == 'GET':
-        return Response({'Bookings': trip_model.get_all()}, status=status.HTTP_200_OK)
+        return Response(trip_model.get_all(), status=status.HTTP_200_OK)
 
     # add trip
     if request.method == 'POST':
