@@ -5,8 +5,10 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Booking, Trip
-from .common import open_seats, add_ticket_id, trip_creator
+from .common import open_seats, add_ticket_id, trip_creator, seats
 from Api.base_models import BaseModel
+import json
+
 
 # Create your views here.
 
@@ -84,7 +86,7 @@ def seats_available(request, format=None):
         bus_reg = request.data.get('bus_reg')
         trip_time = request.data.get('trip_time')
         seats_available = open_seats(bus_reg, trip_time)
-        return Response({'Available seats': seats_available}, status=status.HTTP_200_OK)
+        return Response({'seats': seats_available}, status=status.HTTP_200_OK)
 
 
 @api_view(['GET', 'POST'])
@@ -98,9 +100,16 @@ def trips(request, format=None):
     trip_model = BaseModel(
         model=Trip, serializer=TripSerializer, request=request)
 
-    # get trip
+    # get trips
     if request.method == 'GET':
-        return Response(trip_model.get_all(), status=status.HTTP_200_OK)
+        my_models = []
+        serializer = TripSerializer(Trip.objects.all(), many=True)
+        models = serializer.data
+        for model in models:
+            new_model = seats(model)
+            my_models.append(new_model)
+        my_models = my_models
+        return Response(my_models, status=status.HTTP_200_OK)
 
     # add trip
     if request.method == 'POST':

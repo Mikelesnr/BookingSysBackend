@@ -4,6 +4,7 @@ from .serializers import BookingSerializer
 from .models import Booking
 from uuid import uuid4 as id
 import json
+import copy
 
 # create objects and functions for booking functionality here
 
@@ -43,6 +44,18 @@ def add_ticket_id(request):
     '''
     my_request = request.POST.copy()
     my_request['ticket_id'] = str(id())
+    my_request = json.dumps(my_request)
+    my_request = json.loads(my_request)
+    return my_request
+
+
+def seats(request):
+    '''
+    adds unique ticket id to request using uuid4 class
+    '''
+    my_request = request.copy()
+    my_request['seats_available'] = open_seats(
+        request.get('bus_reg'), request.get('trip_time'))
     my_request = json.dumps(my_request)
     my_request = json.loads(my_request)
     return my_request

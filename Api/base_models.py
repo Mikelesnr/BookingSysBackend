@@ -6,9 +6,8 @@ class BaseModel:
         self.request = kwargs.get('request')
 
     def get_all(self):
-        drivers = self.model.objects.all()
-        print(drivers)
-        serializer = self.serializer(drivers, many=True)
+        model = self.model.objects.all()
+        serializer = self.serializer(model, many=True)
         return serializer.data
 
     def add(self):
