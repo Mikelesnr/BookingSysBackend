@@ -69,10 +69,11 @@ def trip_creator(reg, time):
     bookings = Booking.objects.all()
     for booking in bookings:
         if reg == booking.bus_reg and time == booking.trip_time:
+
             trip.append({'bus_reg': booking.bus_reg, 'trip_time': booking.trip_time, 'date': booking.trip_date,
                          'ticket_id': booking.ticket_id, 'Customer_name': booking.client_name,
                          'Customer_lastname': booking.client_surname, 'depature': booking.trip_depature,
-                         'destination': booking.trip_destination})
-    trip = json.dumps({'my_trip': str(trip)})
-    trip = json.loads(trip)
+                         'destination': booking.trip_destination, 'seats': open_seats(booking.bus_reg, booking.trip_time)})
+    # trip = json.dumps({'my_trip': str(trip)})
+    # trip = json.loads(trip)
     return trip

@@ -26,20 +26,21 @@ def booking(request, format=None):
 
     # get bookings
     if request.method == 'GET':
-        return Response({'Bookings': booking_model.get_all()}, status=status.HTTP_200_OK)
+        return Response(booking_model.get_all(), status=status.HTTP_200_OK)
 
     # add booking
     if request.method == 'POST':
         bus_reg = request.data.get('bus_reg')
         trip_time = request.data.get('trip_time')
-        seats_available = open_seats(bus_reg, trip_time)
+        seats_available = open_seats(bus_reg, trip_time)-1
         my_request = add_ticket_id(request)
         booking_model_post = BaseModel(
             model=Booking, serializer=BookingSerializer, request=my_request)
         serializer = BookingSerializer(data=my_request)
         if serializer.is_valid() and seats_available:
             serializer.save()
-            return Response({'Booking': my_request, 'Seats available': seats_available-1}, status=status.HTTP_201_CREATED)
+            my_request['seats'] = seats_available
+            return Response(my_request, status=status.HTTP_201_CREATED)
         else:
             return Response({'seats_available': f"{seats_available} seats available"}, status=status.HTTP_200_OK)
 
@@ -57,7 +58,7 @@ def buses(request, format=None):
 
     # get buses
     if request.method == 'GET':
-        return Response({'Buses': bus_model.get_all()}, status=status.HTTP_200_OK)
+        return Response(bus_model.get_all(), status=status.HTTP_200_OK)
 
 
 @api_view(['POST'])
@@ -72,9 +73,9 @@ def trip(request, format=None):
     if request.method == 'POST':
         bus_reg = request.data.get('bus_reg')
         trip_time = request.data.get('trip_time')
-        seats_available = open_seats(bus_reg, trip_time)
-        my_trip = trip_creator(bus_reg, trip_time)
-        return Response({'trip': my_trip, 'Available seats': seats_available}, status=status.HTTP_200_OK)
+        # seats_available = open_seats(bus_reg, trip_time)
+        trip = trip_creator(bus_reg, trip_time)
+        return Response(trip, status=status.HTTP_200_OK)
 
 
 @api_view(['POST'])

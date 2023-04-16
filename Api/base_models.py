@@ -17,6 +17,13 @@ class BaseModel:
             return serializer.data
         return False
 
+    def add_dict(self):
+        serializer = self.serializer(data=self.request)
+        if serializer.is_valid():
+            serializer.save()
+            return serializer.data
+        return False
+
     def get_one(self, entry):
         serializer = self.serializer(entry)
         return serializer.data
