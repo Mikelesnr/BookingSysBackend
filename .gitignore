@@ -1,9 +1,6 @@
-.venv
-db.sqlite
-__pycache__
-booking/__pycache__
-driver/__pycache__
-Api/__pycache__
-env
 Accounts/__pycache__
 Api/__pycache__
+booking/__pycache__
+driver/__pycache__
+env
+db.sqlite
