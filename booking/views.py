@@ -34,8 +34,6 @@ def booking(request, format=None):
         trip_time = request.data.get('trip_time')
         seats_available = open_seats(bus_reg, trip_time)-1
         my_request = add_ticket_id(request)
-        booking_model_post = BaseModel(
-            model=Booking, serializer=BookingSerializer, request=my_request)
         serializer = BookingSerializer(data=my_request)
         if serializer.is_valid() and seats_available:
             serializer.save()
