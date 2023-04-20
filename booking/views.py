@@ -32,15 +32,46 @@ def booking(request, format=None):
     if request.method == 'POST':
         bus_reg = request.data.get('bus_reg')
         trip_time = request.data.get('trip_time')
-        seats_available = open_seats(bus_reg, trip_time)-1
+        seats_available = open_seats(bus_reg, trip_time)
         my_request = add_ticket_id(request)
         serializer = BookingSerializer(data=my_request)
         if serializer.is_valid() and seats_available:
             serializer.save()
-            my_request['seats'] = seats_available
+            my_request['seats'] = seats_available-1
             return Response(my_request, status=status.HTTP_201_CREATED)
         else:
             return Response({'seats_available': f"{seats_available} seats available"}, status=status.HTTP_200_OK)
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def booking_edit(request, id, format=None):
+    '''
+    .gets one driver, update driver, delete driver
+    .serializes record
+    .return json
+    '''
+
+    booking_model = BaseModel(
+        model=Booking, serializer=BookingSerializer, request=request)
+
+    # retrieve driver and assign to driver
+    try:
+        booking = Booking.objects.get(pk=id)
+    except Booking.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    # get driver
+    if request.method == 'GET':
+        return Response(booking_model.get_one(booking), status=status.HTTP_200_OK)
+
+    # edit driver
+    elif request.method == 'PUT':
+        return Response(booking_model.edit_entry(booking), status=status.HTTP_201_CREATED)
+
+    # delete driver
+    elif request.method == 'DELETE':
+        booking_model.delete_entry(booking)
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 @api_view(['GET'])

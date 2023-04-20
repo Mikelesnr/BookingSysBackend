@@ -42,7 +42,11 @@ def add_ticket_id(request):
     '''
     adds unique ticket id to request using uuid4 class
     '''
-    my_request = request.POST.copy()
+    if request.POST.copy():
+        my_request = request.POST.copy()
+    else:
+        my_request = request.data
+    print(my_request)
     my_request['ticket_id'] = str(id())
     my_request = json.dumps(my_request)
     my_request = json.loads(my_request)
