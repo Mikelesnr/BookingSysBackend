@@ -4,6 +4,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from Api.base_models import BaseModel
+from booking.serializers import TripSerializer
+from booking.models import Trip
 
 
 @api_view(['GET', 'POST'])
@@ -54,5 +56,6 @@ def driver_detail(request, id, format=None):
 
     # delete driver
     elif request.method == 'DELETE':
+        Trip.objects.filter(bus_reg=driver.bus_reg).delete()
         driver_model.delete_entry(driver)
         return Response(status=status.HTTP_204_NO_CONTENT)

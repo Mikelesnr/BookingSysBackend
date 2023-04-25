@@ -35,7 +35,7 @@ def open_seats(reg, time):
     '''
     checks how many seats are available on the trip
     '''
-    return int(check_capacity(reg)) - int(count_booked(reg, time))
+    return int(check_capacity(reg)) - count_booked(reg, time)
 
 
 def add_ticket_id(request):
@@ -55,14 +55,15 @@ def add_ticket_id(request):
 
 def seats(request):
     '''
-    adds unique ticket id to request using uuid4 class
+    adds number of seats
     '''
-    my_request = request.copy()
-    my_request['seats_available'] = open_seats(
-        request.get('bus_reg'), request.get('trip_time'))
-    my_request = json.dumps(my_request)
-    my_request = json.loads(my_request)
-    return my_request
+    request = request.copy()
+    reg = request.get('bus_reg')
+    time = request.get('trip_time')
+    request['seats_available'] = open_seats(reg, time)
+    request = json.dumps(request)
+    request = json.loads(request)
+    return request
 
 
 def trip_creator(reg, time):
