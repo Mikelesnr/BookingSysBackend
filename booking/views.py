@@ -174,5 +174,7 @@ def trip_edit(request, id, format=None):
 
     # delete driver
     elif request.method == 'DELETE':
+        Booking.objects.filter(bus_reg=trip.bus_reg,
+                               trip_time=trip.trip_time).delete()
         trip_model.delete_entry(trip)
         return Response(status=status.HTTP_204_NO_CONTENT)
