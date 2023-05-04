@@ -1,6 +1,8 @@
 Accounts/__pycache__
+Accounts/tests/__pycache__
 Api/__pycache__
 booking/__pycache__
+booking/tests/__pycache__
 driver/__pycache__
+driver/tests/__pycache__
 env
-db.sqlite
