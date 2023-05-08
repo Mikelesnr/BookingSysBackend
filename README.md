@@ -1,5 +1,5 @@
 # BookingSysBackend
-final project for alx software development progeam
+final project for alx software development program
 #Authors
 Aturiheihi Blendon AturiheihiBlendon@github.com
 Michael Ngonidzashe Mwanza Mikelesnr@github.com
