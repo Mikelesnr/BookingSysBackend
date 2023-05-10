@@ -10,19 +10,8 @@ from django.contrib.auth.hashers import make_password
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("first_name", "last_name","username", "password")
-        # extra_kwargs = {
-        #     "password": {"write_only": True},
-        #     "username": {
-        #         "required": True,
-        #         "allow_blank": False,
-        #         "validators": [
-        #             validators.UniqueValidator(
-        #                 User.objects.all(), "A user with the Username {} already exists".format(User.username)
-        #             )
-        #         ],
-        #     },
-        # }
+        fields = ("id","first_name", "last_name","username","is_admin","is_driver","is_traveller")
+        # fields = '__all__'
 
 class AdminRegisterSerializer(serializers.ModelSerializer):
     class Meta:
