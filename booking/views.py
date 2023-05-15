@@ -184,4 +184,4 @@ def trip_edit(request, id, format=None):
 def bus_trip_count(request):
     reg = request.data.get('bus_reg')
     counter = Trip.objects.filter(bus_reg=reg)
-    return Response(len(counter), status=status.HTTP_200_OK)
+    return Response({'num_of_trips': len(counter)}, status=status.HTTP_200_OK)
