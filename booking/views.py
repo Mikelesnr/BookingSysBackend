@@ -8,6 +8,7 @@ from .models import Booking, Trip
 from .common import open_seats, add_ticket_id, trip_creator, seats
 from Api.base_models import BaseModel
 import json
+from django.db.models import Count
 
 
 # Create your views here.
@@ -185,3 +186,10 @@ def bus_trip_count(request):
     reg = request.data.get('bus_reg')
     counter = Trip.objects.filter(bus_reg=reg)
     return Response({'num_of_trips': len(counter)}, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def bus_booking_count(request):
+    bookings = Booking.objects.values('bus_reg').annotate(total_bookings=Count('id'))
+    response_data = list(bookings)
+    return Response(response_data)
