@@ -183,9 +183,9 @@ def trip_edit(request, id, format=None):
 
 @api_view(['GET'])
 def bus_trip_count(request):
-    reg = request.data.get('bus_reg')
-    counter = Trip.objects.filter(bus_reg=reg)
-    return Response({'num_of_trips': len(counter)}, status=status.HTTP_200_OK)
+    trips = Trip.objects.values('bus_reg').annotate(total_trips=Count('id'))
+    res_data = list(trips)
+    return Response(res_data)
 
 
 @api_view(['GET'])
