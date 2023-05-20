@@ -103,6 +103,8 @@ def get_user(request):
             'user': {
             'id': user.id,
             'username': user.username,
+            'first_name': user.first_name,
+            'last_name': user.last_name,
             'user-type': "Admin" if user.is_admin\
                 else "Driver" if user.is_driver else "Traveller" if user.is_traveller\
                     else "User-role not specified"
