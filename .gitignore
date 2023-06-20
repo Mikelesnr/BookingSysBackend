@@ -6,4 +6,3 @@ booking/tests/__pycache__
 driver/__pycache__
 driver/tests/__pycache__
 env
-db.sqlite
